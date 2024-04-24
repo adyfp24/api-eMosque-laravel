@@ -22,9 +22,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->bigInteger("role_id")->unsigned();
             $table->timestamps();
-            
-            // $table->foreign("role_id")->references("id_role")->on("roles")->onDelete("cascade");
-
 
         });
     }
