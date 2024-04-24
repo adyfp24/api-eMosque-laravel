@@ -19,7 +19,7 @@ class CreateQurbansTable extends Migration
             $table->date("tanggal");
             $table->string("dokumentasi");
             $table->text("deskripsi");
-            $table->bigInteger("qurban_jenis_id");
+            $table->bigInteger("qurban_jenis_id")->unsigned();
             $table->timestamps();
             
             $table->foreign('qurban_jenis_id')->references('id_jenis_qurban')->on('jenis_qurbans')->onDelete('cascade');
