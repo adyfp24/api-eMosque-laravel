@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDetailKegiatansTable extends Migration
+class CreateKegiatansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateDetailKegiatansTable extends Migration
      */
     public function up()
     {
-        Schema::create('detail_kegiatans', function (Blueprint $table) {
-            $table->id('id_detail_kegiatan');
-            $table->date('tgl_kegiatan');
-            $table->string('nama_pengaju');
-            $table->text('deskripsi');
+        Schema::create('kegiatans', function (Blueprint $table) {
+            $table->id("id_kegiatan");
+            $table->text("nama_kegiatan");
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateDetailKegiatansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_kegiatans');
+        Schema::dropIfExists('kegiatans');
     }
 }

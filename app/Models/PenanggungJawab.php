@@ -9,10 +9,10 @@ class PenanggungJawab extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'id_penanggung_jawab';
-    protected $fillable = ['nama_pj'];
+    protected $primaryKey = 'id_pj';
+    protected $fillable = 'nama_kegiatan';
 
-    public function kegiatan(){
-        return $this->belongsTo(Kegiatan::class);
+    public function detailKegiatan(){
+        return $this->belongsTo(DetailKegiatan::class);
     }
 }

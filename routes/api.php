@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\api\QurbanController;
+use App\Http\Controllers\api\auth\LoginController;
+use App\Http\Controllers\api\auth\RegistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +27,5 @@ Route::get('/coba', function (){
 });
 
 Route::post('/qurban', [QurbanController::class,'createQurban']);
+Route::post('/register', [RegistController::class, 'register']);
+Route::post('/login', [LoginController::class, 'login']);
