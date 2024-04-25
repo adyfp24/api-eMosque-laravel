@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\QurbanController;
 use App\Http\Controllers\api\auth\LoginController;
 use App\Http\Controllers\api\auth\RegistController;
 use Illuminate\Http\Request;
@@ -20,5 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::get('/coba', function (){
+    return response()->json(['test' => 'test ini brow'], 200);
+});
+
+Route::post('/qurban', [QurbanController::class,'createQurban']);
 Route::post('/register', [RegistController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
