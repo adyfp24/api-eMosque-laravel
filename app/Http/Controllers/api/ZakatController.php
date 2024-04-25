@@ -7,5 +7,11 @@ use Illuminate\Http\Request;
 
 class ZakatController extends Controller
 {
-    //
+    public function zakatCreate(Request $request){
+        $status= '' ;
+        $message= '';
+        $data = '';
+        $status_code = '';
+
+    }
 }
