@@ -18,7 +18,7 @@ class LoginController extends Controller
             }
             $passwordCheck = Hash::check($request->password, $user->password);
             if(!$passwordCheck){
-                $message = 'registrasi telah berhasil dilakukan';
+                $message = 'password salah';
                 $status_code = 401;
             }
             $api_token = $user->createToken('api_token')->plainTextToken;

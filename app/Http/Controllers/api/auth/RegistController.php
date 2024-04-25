@@ -32,7 +32,7 @@ class RegistController extends Controller
             $data = $newUser;
         }catch(\Exception $e){
             $status = 'failed';
-            $message = 'Gagal menjalankan request'. $e->getMessage() ;
+            $message = 'Gagal menjalankan request' . $e->getMessage() ;
             $status_code = 500;
         }finally{
             return response()->json([
