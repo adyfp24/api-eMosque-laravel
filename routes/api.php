@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\auth\RegistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/coba', function (){
     return response()->json(['test' => 'test ini brow'], 200);
 });
+
+Route::post('/register', [RegistController::class, 'register']);
