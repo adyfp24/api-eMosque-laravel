@@ -10,4 +10,8 @@ class JenisRekapan extends Model
     use HasFactory;
     protected $primaryKey = 'id_jenis_rekapan';
     protected $fillable = ['nama_jenis_rekapan'];
+
+    public function rekapanQurban(){
+        return $this->belongsTo(RekapanQurban::class);
+        }
 }
