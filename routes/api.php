@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\auth\LogoutController;
+use App\Http\Controllers\api\KasController;
 use App\Http\Controllers\api\QurbanController;
 use App\Http\Controllers\api\auth\LoginController;
 use App\Http\Controllers\api\auth\RegistController;
@@ -35,6 +36,7 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout']);
+    Route::post('/saldo-kas', [KasController::class, 'createKas']);
 });
 
 
