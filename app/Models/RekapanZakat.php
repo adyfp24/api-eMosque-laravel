@@ -13,9 +13,6 @@ class RekapanZakat extends Model
     public function jenisRekapan(){
         return $this->hasMany(JenisRekapan::class);
     }
-    public function jenisZakat(){
-        return $this->hasMany(JenisZakat::class);
-    }
     public function yayasanPenerimaZakat(){
         return $this->hasMany(YayasanPenerimaZakat::class);
     }

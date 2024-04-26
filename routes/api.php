@@ -28,6 +28,8 @@ Route::get('/coba', function (){
 });
 
 Route::post('/qurban', [QurbanController::class,'createQurban']);
+Route::get('/qurban', [QurbanController::class,'readQurban']);
+Route::delete('/qurban/{id_qurban}', [QurbanController::class,'deleteQurban']);
 Route::post('/register', [RegistController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 

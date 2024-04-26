@@ -7,7 +7,65 @@ use App\Models\Qurban;
 use Illuminate\Http\Request;
 
 class QurbanController extends Controller
-{
+{   
+    public function deleteQurban($id_qurban){
+        $status = '';
+        $message = '';
+        $status_code = '';
+        try{
+            $qurban = Qurban::find($id_qurban);
+            if(!$qurban){
+                $message = 'Data qurban tidak ditemukan';
+                $status_code = 404;
+            }else{
+            $qurban->delete();
+            $status = 'success';
+            $message = 'Data qurban berhasil dihapus';
+            $status_code = 200;
+            }
+    
+        }catch(\Exception $e){
+            $status = 'failed';
+            $message = 'Gagal menghapus data qurban: ' . $e->getMessage();
+            $status_code = 500;
+        }finally{
+            return response()->json([
+                'status' => $status,
+                'message' => $message,
+            ], $status_code);
+        }
+    }
+    public function readQurban(){
+        $status = '';
+        $message = '';
+        $data = '';
+        $status_code = '';
+        try{
+            $qurban = Qurban::all();
+            if($qurban->isEmpty()){
+                $message = 'Data qurban tidak ditemukan';
+                $status_code = 404; 
+            } else {
+                $status = 'success';
+                $message = 'Data qurban berhasil ditemukan';
+                $data = $qurban;
+                $status_code = 200;
+            }
+    
+        }catch(\Exception $e){
+            $status = 'failed';
+            $message = 'Gagal membaca data qurban: ' . $e->getMessage();
+            $status_code = 500;
+        }finally{
+            return response()->json([
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            ], $status_code);
+        }
+    }
+    
+    
     public function createQurban(Request $request){
         $status = '';
         $message = '';
