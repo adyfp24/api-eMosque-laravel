@@ -15,4 +15,9 @@ class RekapanQurban extends Model
     public function jeniRekapan(){
     return $this->hasMany(JenisRekapan::class);
     }
+
+    public function yayasanPenerimaQurban()
+    {
+        return $this->belongsTo(YayasanPenerimaQurban::class);
+    }
 }
