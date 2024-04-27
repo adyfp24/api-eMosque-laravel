@@ -13,7 +13,7 @@ class RegistController extends Controller
         $status = '';
         $message = '';
         $data = '';
-        $status_code = '';
+        $status_code = 201;
         try{
             $newUser = User::create([
                 'name' => $request->name,

@@ -32,7 +32,39 @@ class KasController extends Controller
             $data = $newKas;
 
         }catch(\Exception $e){
-            $status = 'failde';
+            $status = 'failed';
+            $message = 'Gagal menjalankan requesst'. $e->getMessage();
+            $status_code = 500;
+        }finally{
+            return response()->json([
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            ], $status_code);
+
+        }
+    }
+
+    public function readAllKas(Request $request){
+        $status = '';
+        $message = '';
+        $data = '';
+        $status_code = 200;
+        try{
+            $allKas = Saldo_kas::all();
+            if(!is_null($allKas) && $allKas->isNotEmpty()){
+                $message = 'data saldo kas berhasil didapat';
+                $status_code = 200;
+    
+            }else{
+                $message = 'data kas tidak tersedia';
+                $status_code = 404;
+            }
+            $status = 'success';
+            $data = $allKas;
+
+        }catch(\Exception $e){
+            $status = 'failed';
             $message = 'Gagal menjalankan requesst'. $e->getMessage();
             $status_code = 500;
         }finally{

@@ -28,15 +28,18 @@ Route::get('/coba', function (){
     return response()->json(['test' => 'test ini brow'], 200);
 });
 
-Route::post('/qurban', [QurbanController::class,'createQurban']);
-Route::get('/qurban', [QurbanController::class,'readQurban']);
-Route::delete('/qurban/{id_qurban}', [QurbanController::class,'deleteQurban']);
 Route::post('/register', [RegistController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout']);
     Route::post('/saldo-kas', [KasController::class, 'createKas']);
+    Route::post('/qurban', [QurbanController::class,'createQurban']);
+    Route::delete('/qurban/{id_qurban}', [QurbanController::class,'deleteQurban']);
+    
 });
+
+Route::get('/qurban', [QurbanController::class,'readQurban']);
+Route::get('/saldo-kas', [KasController::class, 'readAllKas']);
 
 

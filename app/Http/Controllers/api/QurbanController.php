@@ -11,7 +11,7 @@ class QurbanController extends Controller
     public function deleteQurban($id_qurban){
         $status = '';
         $message = '';
-        $status_code = '';
+        $status_code = 200;
         try{
             $qurban = Qurban::find($id_qurban);
             if(!$qurban){
@@ -39,7 +39,7 @@ class QurbanController extends Controller
         $status = '';
         $message = '';
         $data = '';
-        $status_code = '';
+        $status_code = 200;
         try{
             $qurban = Qurban::all();
             if($qurban->isEmpty()){
@@ -70,7 +70,7 @@ class QurbanController extends Controller
         $status = '';
         $message = '';
         $data = '';
-        $status_code = '';
+        $status_code = 200;
         try{
             $newQurban = Qurban::create([
                 'nama_orang_berqurban' => $request->nama_orang_berqurban,
