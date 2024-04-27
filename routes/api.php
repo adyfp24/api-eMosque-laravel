@@ -33,10 +33,10 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout']);
-    Route::post('/saldo-kas', [KasController::class, 'createKas']);
     Route::post('/qurban', [QurbanController::class,'createQurban']);
-    Route::delete('/qurban/{id_qurban}', [QurbanController::class,'deleteQurban']);
-    
+    Route::delete('/qurban/{id_qurban}', [QurbanController::class,'deleteQurban']); 
+    Route::post('/saldo-kas', [KasController::class, 'createKas']);
+    Route::put('/saldo-kas/{id_kas}', [KasController::class,'updateKas']);
 });
 
 Route::get('/qurban', [QurbanController::class,'readQurban']);

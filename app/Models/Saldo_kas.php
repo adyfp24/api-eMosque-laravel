@@ -9,7 +9,7 @@ class Saldo_kas extends Model
 {
     use HasFactory;
 
-    protected $primarykey = "id_saldo_kas";
+    protected $primaryKey = "id_saldo_kas";
     protected $fillable = ["tanggal", "total_saldo", "kas_jenis_id"];
 
     public function jenisKas()
