@@ -40,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/saldo-kas', [KasController::class, 'createKas']);
     Route::put('/saldo-kas/{id_kas}', [KasController::class,'updateKas']);
     Route::delete('/saldo-kas/{id_kas}', [KasController::class,'deleteKas']);
+    Route::post('/saldo-kas/{id_kas}/', [KasController::class,'approveKas']);
 });
 
 Route::get('/qurban', [QurbanController::class,'readQurban']);
