@@ -112,4 +112,32 @@ class KasController extends Controller
         }
     }
     
+    public function deleteKas($id_kas){
+        $status = '';
+        $message = '';
+        $data = '';
+        $status_code = 200;
+        try{
+            $kas = Saldo_kas::find($id_kas);
+            if($kas){
+                $kas->delete();
+                $message = 'saldo kas berhasil dihapus';
+                $status_code = 200;
+            }else{
+                $message = 'Data saldo kas tidak ditemukan';
+                $status_code = 404;
+            }
+            $status = 'success';
+        }catch(\Exception $e){
+            $status = 'failed';
+            $message = 'Gagal menjalankan request: ' . $e->getMessage();
+            $status_code = 500;
+        }finally{
+            return response()->json([
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            ], $status_code);
+        }
+    }
 }
