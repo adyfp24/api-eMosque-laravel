@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\auth\LogoutController;
 use App\Http\Controllers\api\KasController;
+use App\Http\Controllers\api\ProfileController;
 use App\Http\Controllers\api\QurbanController;
 use App\Http\Controllers\api\auth\LoginController;
 use App\Http\Controllers\api\auth\RegistController;
@@ -32,6 +33,7 @@ Route::post('/register', [RegistController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'getProfile']);
     Route::post('/logout', [LogoutController::class, 'logout']);
     Route::post('/qurban', [QurbanController::class,'createQurban']);
     Route::delete('/qurban/{id_qurban}', [QurbanController::class,'deleteQurban']); 
