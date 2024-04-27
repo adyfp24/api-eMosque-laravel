@@ -35,15 +35,22 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [ProfileController::class, 'getProfile']);
     Route::post('/logout', [LogoutController::class, 'logout']);
-    Route::post('/qurban', [QurbanController::class,'createQurban']);
-    Route::delete('/qurban/{id_qurban}', [QurbanController::class,'deleteQurban']); 
-    Route::post('/saldo-kas', [KasController::class, 'createKas']);
-    Route::put('/saldo-kas/{id_kas}', [KasController::class,'updateKas']);
-    Route::delete('/saldo-kas/{id_kas}', [KasController::class,'deleteKas']);
-    Route::post('/saldo-kas/{id_kas}/', [KasController::class,'approveKas']);
 });
 
 Route::get('/qurban', [QurbanController::class,'readQurban']);
 Route::get('/saldo-kas', [KasController::class, 'readAllKas']);
 
+Route::middleware(['auth:sanctum', 'role:ketua'])->prefix('ketua')->group(function(){
+    Route::post('/saldo-kas/{id_kas}/', [KasController::class,'approveKas']);
+});
 
+Route::middleware(['auth:sanctum', 'role:bendahara'])->prefix('bendahara')->group(function(){
+    Route::post('/saldo-kas', [KasController::class, 'createKas']);
+    Route::put('/saldo-kas/{id_kas}', [KasController::class,'updateKas']);
+    Route::delete('/saldo-kas/{id_kas}', [KasController::class,'deleteKas']);
+});
+
+Route::middleware(['auth:sanctum', 'role:sekretaris'])->prefix('sekretaris')->group(function(){
+    Route::post('/qurban', [QurbanController::class,'createQurban']);
+    Route::delete('/qurban/{id_qurban}', [QurbanController::class,'deleteQurban']); 
+});
