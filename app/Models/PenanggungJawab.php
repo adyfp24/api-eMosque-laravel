@@ -10,7 +10,7 @@ class PenanggungJawab extends Model
     use HasFactory;
 
     protected $primaryKey = 'id_pj';
-    protected $fillable = 'nama_kegiatan';
+    protected $fillable = ['nama_pj'];
 
     public function detailKegiatan(){
         return $this->belongsTo(DetailKegiatan::class);

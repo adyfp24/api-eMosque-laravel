@@ -10,7 +10,7 @@ class Kegiatan extends Model
     use HasFactory;
 
     protected $primaryKey = 'id_kegiatan';
-    protected $fillable = 'nama_kegiatan';
+    protected $fillable = ['nama_kegiatan'];
 
     public function detailKegiatan(){
         return $this->belongsTo(DetailKegiatan::class);
