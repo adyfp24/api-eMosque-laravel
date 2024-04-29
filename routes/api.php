@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\api\auth\LogoutController;
 use App\Http\Controllers\api\KasController;
+use App\Http\Controllers\api\KegiatanController;
 use App\Http\Controllers\api\ProfileController;
 use App\Http\Controllers\api\QurbanController;
 use App\Http\Controllers\api\auth\LoginController;
 use App\Http\Controllers\api\auth\RegistController;
+use App\Models\DetailKegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/coba', function (){
+Route::get('/coba', function () {
     return response()->json(['test' => 'test ini brow'], 200);
 });
 
@@ -37,20 +39,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout']);
 });
 
-Route::get('/qurban', [QurbanController::class,'readQurban']);
+Route::get('/qurban', [QurbanController::class, 'readQurban']);
 Route::get('/saldo-kas', [KasController::class, 'readAllKas']);
 
-Route::middleware(['auth:sanctum', 'role:ketua'])->prefix('ketua')->group(function(){
-    Route::post('/saldo-kas/{id_kas}/', [KasController::class,'approveKas']);
+Route::middleware(['auth:sanctum', 'role:ketua'])->group(function () {
+    Route::post('/saldo-kas/{id_kas}/', [KasController::class, 'approveKas']);
 });
 
-Route::middleware(['auth:sanctum', 'role:bendahara'])->prefix('bendahara')->group(function(){
+Route::middleware(['auth:sanctum', 'role:bendahara'])->group(function () {
     Route::post('/saldo-kas', [KasController::class, 'createKas']);
-    Route::put('/saldo-kas/{id_kas}', [KasController::class,'updateKas']);
-    Route::delete('/saldo-kas/{id_kas}', [KasController::class,'deleteKas']);
+    Route::put('/saldo-kas/{id_kas}', [KasController::class, 'updateKas']);
+    Route::delete('/saldo-kas/{id_kas}', [KasController::class, 'deleteKas']);
 });
 
-Route::middleware(['auth:sanctum', 'role:sekretaris'])->prefix('sekretaris')->group(function(){
-    Route::post('/qurban', [QurbanController::class,'createQurban']);
-    Route::delete('/qurban/{id_qurban}', [QurbanController::class,'deleteQurban']); 
+Route::middleware(['auth:sanctum', 'role:sekretaris'])->group(function () {
+    Route::post('/qurban', [QurbanController::class, 'createQurban']);
+    Route::delete('/qurban/{id_qurban}', [QurbanController::class, 'deleteQurban']);
+    Route::post('/kegiatan', [KegiatanController::class, 'createKegiatan']);
 });
