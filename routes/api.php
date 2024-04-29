@@ -5,6 +5,8 @@ use App\Http\Controllers\api\KasController;
 use App\Http\Controllers\api\QurbanController;
 use App\Http\Controllers\api\auth\LoginController;
 use App\Http\Controllers\api\auth\RegistController;
+use App\Http\Controllers\api\ZakatController;
+use App\Models\ZakatFitrah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +40,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/saldo-kas', [KasController::class, 'createKas']);
     Route::put('/saldo-kas/{id_kas}', [KasController::class,'updateKas']);
     Route::delete('/saldo-kas/{id_kas}', [KasController::class,'deleteKas']);
+
+    Route::post('/zakat-fitrah', [ZakatController::class,'createZakat']);
+    Route::get('/zakat-fitrah', [ZakatController::class,'readZakat']);
+    Route::put('/zakat-fitrah/{id_zakatfitrah}', [ZakatController::class,'updateZakat']);
+    Route::delete('/zakat-fitrah/{id_zakatfitrah}', [ZakatController::class,'deleteZakat']);
 });
 
 Route::get('/qurban', [QurbanController::class,'readQurban']);
