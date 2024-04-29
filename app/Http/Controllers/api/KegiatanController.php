@@ -45,7 +45,43 @@ class KegiatanController extends Controller
                 'message' => $message,
                 'data' => $data
             ], $status_code);
+        }
+    }
 
+    public function updateKegiatan(Request $request, $id_kegiatan)
+    {
+        $status = '';
+        $message = '';
+        $data = '';
+        $status_code = 200;
+        try {
+            $kegiatan = DetailKegiatan::find($id_kegiatan);
+            if ($kegiatan) {
+                $updatedKegiatan = $kegiatan->update([
+                    'kegiatan_id' => $request->id_kegiatan ?? $kegiatan->kegiatan_id,
+                    'nama_pengaju' => $request->nama_pengaju ?? $kegiatan->nama_pengaju,
+                    'deskripsi' => $request->deskripsi ?? $kegiatan->deskripsi,
+                    'tgl_kegiatan' => $request->tgl_kegiatan ?? $kegiatan->tgl_kegiatan,
+                    'pj_id' => $request->id_pj ?? $kegiatan->pj_id
+                ]);
+                $message = 'berhasil memperbarui data kegiatan';
+                $status_code = 200;
+            } else {
+                $message = 'id kegiatan tidak ditemukan';
+                $status_code = 404;
+            }
+            $status = 'success';
+            $data = $updatedKegiatan;
+        } catch (\Exception $e) {
+            $status = 'ailed';
+            $message = 'Gagal menjalankan request' . $e->getMessage();
+            $status_code = 500;
+        } finally {
+            return response()->json([
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            ], $status_code);
         }
     }
 
