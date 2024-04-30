@@ -52,7 +52,10 @@ Route::middleware(['auth:sanctum', 'role:bendahara'])->group(function () {
     Route::delete('/saldo-kas/{id_kas}', [KasController::class, 'deleteKas']);
 });
 
+
+
 Route::middleware(['auth:sanctum', 'role:sekretaris'])->group(function () {
+    Route::put('/qurban/{id_qurban}', [QurbanController::class, 'updateQurban']);
     Route::post('/qurban', [QurbanController::class, 'createQurban']);
     Route::delete('/qurban/{id_qurban}', [QurbanController::class, 'deleteQurban']);
     Route::post('/kegiatan', [KegiatanController::class, 'createKegiatan']);
