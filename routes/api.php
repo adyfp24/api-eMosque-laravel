@@ -7,6 +7,8 @@ use App\Http\Controllers\api\ProfileController;
 use App\Http\Controllers\api\QurbanController;
 use App\Http\Controllers\api\auth\LoginController;
 use App\Http\Controllers\api\auth\RegistController;
+use App\Http\Controllers\api\ZakatController;
+use App\Models\ZakatFitrah;
 use App\Models\DetailKegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +39,11 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [ProfileController::class, 'getProfile']);
     Route::post('/logout', [LogoutController::class, 'logout']);
+
+    Route::post('/zakat-fitrah', [ZakatController::class,'createZakat']);
+    Route::get('/zakat-fitrah', [ZakatController::class,'readZakat']);
+    Route::put('/zakat-fitrah/{id_zakatfitrah}', [ZakatController::class,'updateZakat']);
+    Route::delete('/zakat-fitrah/{id_zakatfitrah}', [ZakatController::class,'deleteZakat']);
 });
 
 Route::get('/qurban', [QurbanController::class, 'readQurban']);
