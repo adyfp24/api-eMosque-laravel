@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\auth\LogoutController;
 use App\Http\Controllers\api\KasController;
 use App\Http\Controllers\api\KegiatanController;
+use App\Http\Controllers\api\PerizinanController;
 use App\Http\Controllers\api\ProfileController;
 use App\Http\Controllers\api\QurbanController;
 use App\Http\Controllers\api\auth\LoginController;
@@ -62,7 +63,10 @@ Route::middleware(['auth:sanctum', 'role:bendahara'])->group(function () {
 Route::middleware(['auth:sanctum', 'role:sekretaris'])->group(function () {
     Route::post('/qurban', [QurbanController::class, 'createQurban']);
     Route::delete('/qurban/{id_qurban}', [QurbanController::class, 'deleteQurban']);
+
     Route::post('/kegiatan', [KegiatanController::class, 'createKegiatan']);
     Route::put('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'updateKegiatan']);
     Route::delete('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'deleteKegiatan']);
+
+    Route::post('/perizinan', [PerizinanController::class, 'createPerizinan']);
 });

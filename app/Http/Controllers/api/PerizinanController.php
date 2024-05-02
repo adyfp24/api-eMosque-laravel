@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailPerizinan;
 use Illuminate\Http\Request;
 
 class PerizinanController extends Controller
@@ -14,8 +15,8 @@ class PerizinanController extends Controller
         $data = '';
         $status_code = 200;
         try {
-            $newPerizinan = DetailKegiatan::create([
-                'kegiatan_id' => $request->id_kegiatan,
+            $newPerizinan = DetailPerizinan::create([
+                'perizinan_id' => $request->id_perizinan,
                 'nama_pengaju' => $request->nama_pengaju,
                 'deskripsi' => $request->deskripsi,
                 'tgl_kegiatan' => $request->tgl_kegiatan,

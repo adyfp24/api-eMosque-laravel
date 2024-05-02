@@ -11,7 +11,7 @@ class DetailPerizinan extends Model
 
     protected $primaryKey = 'id_detail_perizinan';
     protected $fillable = ['tgl_kegiatan', 'nama_pengaju', 'deskripsi', 'pj_id', 'kegiatan_id'];
-    protected $table = 'detail_kegiatans';
+    protected $table = 'detail_perizinans';
 
     public function penanggungJawab(){
         return $this->hasMany(PenanggungJawab::class);
