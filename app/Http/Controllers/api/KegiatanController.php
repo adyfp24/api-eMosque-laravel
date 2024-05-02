@@ -85,4 +85,32 @@ class KegiatanController extends Controller
         }
     }
 
+    public function deleteKegiatan($id_kegiatan){
+        $status = '';
+        $message = '';
+        $data = '';
+        $status_code = 200;
+        try {
+            $kegiatan = DetailKegiatan::find($id_kegiatan);
+            if ($kegiatan) {
+                $kegiatan->delete();
+                $message = 'kegiatan berhasil dihapus';
+                $status_code = 200;
+            } else {
+                $message = 'Data kegiatan tidak ditemukan';
+                $status_code = 404;
+            }
+            $status = 'success';
+        } catch (\Exception $e) {
+            $status = 'failed';
+            $message = 'Gagal menjalankan request: ' . $e->getMessage();
+            $status_code = 500;
+        } finally {
+            return response()->json([
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            ], $status_code);
+        }
+    }
 }

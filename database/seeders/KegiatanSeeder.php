@@ -14,7 +14,7 @@ class KegiatanSeeder extends Seeder
      */
     public function run()
     {
-        // Data kegiatan yang ingin disimpan
+        
         $kegiatans = [
             ['nama_kegiatan' => 'sholat jumat'],
             ['nama_kegiatan' => 'sholat ied'],
@@ -22,7 +22,6 @@ class KegiatanSeeder extends Seeder
             ['nama_kegiatan' => 'hari besar'],
         ];
 
-        // Looping untuk menyimpan data kegiatan
         foreach ($kegiatans as $kegiatan) {
             Kegiatan::create($kegiatan);
         }
