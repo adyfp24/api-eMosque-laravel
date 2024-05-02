@@ -60,8 +60,6 @@ Route::middleware(['auth:sanctum', 'role:bendahara'])->group(function () {
     Route::delete('/saldo-kas/{id_kas}', [KasController::class, 'deleteKas']);
 });
 
-
-
 Route::middleware(['auth:sanctum', 'role:sekretaris'])->group(function () {
     Route::put('/qurban/{id_qurban}', [QurbanController::class, 'updateQurban']);
     Route::post('/qurban', [QurbanController::class, 'createQurban']);
@@ -72,4 +70,6 @@ Route::middleware(['auth:sanctum', 'role:sekretaris'])->group(function () {
     Route::delete('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'deleteKegiatan']);
 
     Route::post('/perizinan', [PerizinanController::class, 'createPerizinan']);
+    Route::put('/perizinan/{id_perizinan}', [PerizinanController::class, 'updatePerizinan']);
+    Route::delete('/perizinan/{id_perizinan}', [PerizinanController::class, 'deletePerizinan']);
 });
