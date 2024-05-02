@@ -64,4 +64,5 @@ Route::middleware(['auth:sanctum', 'role:sekretaris'])->group(function () {
     Route::delete('/qurban/{id_qurban}', [QurbanController::class, 'deleteQurban']);
     Route::post('/kegiatan', [KegiatanController::class, 'createKegiatan']);
     Route::put('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'updateKegiatan']);
+    Route::delete('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'deleteKegiatan']);
 });
