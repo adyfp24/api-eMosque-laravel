@@ -6,6 +6,993 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/saldo-kas": {
+            "get": {
+                "summary": "Read all kas",
+                "description": "Read all kas data.",
+                "operationId": "readAllKas",
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieval of kas data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kas retrieval",
+                                            "type": "string",
+                                            "example": "Data saldo kas berhasil didapat"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No kas data available",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kas retrieval failure",
+                                            "type": "string",
+                                            "example": "Data kas tidak tersedia"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create new kas",
+                "description": "Create a new kas with total saldo, kas jenis ID, and current date.",
+                "operationId": "createKas",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "total_saldo",
+                                    "kas_jenis_id"
+                                ],
+                                "properties": {
+                                    "total_saldo": {
+                                        "description": "Total saldo of the kas",
+                                        "type": "number",
+                                        "example": 1000000
+                                    },
+                                    "kas_jenis_id": {
+                                        "description": "ID of the kas jenis",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful creation of kas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kas creation",
+                                            "type": "string",
+                                            "example": "Inputan data saldo kas berhasil dibuat"
+                                        },
+                                        "data": {
+                                            "description": "Created kas data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kas creation failure",
+                                            "type": "string",
+                                            "example": "Inputan data saldo kas gagal"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/saldo-kas/{id_kas}": {
+            "put": {
+                "summary": "Update kas",
+                "description": "Update kas data by ID.",
+                "operationId": "updateKas",
+                "parameters": [
+                    {
+                        "name": "id_kas",
+                        "in": "path",
+                        "description": "ID of the kas to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "total_saldo": {
+                                        "description": "Updated total saldo of the kas",
+                                        "type": "number",
+                                        "example": 2000000
+                                    },
+                                    "kas_jenis_id": {
+                                        "description": "Updated ID of the kas jenis",
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful update of kas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kas update",
+                                            "type": "string",
+                                            "example": "Saldo kas berhasil diperbarui"
+                                        },
+                                        "data": {
+                                            "description": "Updated kas data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Kas data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kas update failure",
+                                            "type": "string",
+                                            "example": "Data saldo kas tidak ditemukan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete kas",
+                "description": "Delete kas data by ID.",
+                "operationId": "deleteKas",
+                "parameters": [
+                    {
+                        "name": "id_kas",
+                        "in": "path",
+                        "description": "ID of the kas to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful deletion of kas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kas deletion",
+                                            "type": "string",
+                                            "example": "Saldo kas berhasil dihapus"
+                                        },
+                                        "data": {
+                                            "description": "No data returned",
+                                            "type": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Kas data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kas deletion failure",
+                                            "type": "string",
+                                            "example": "Data saldo kas tidak ditemukan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/saldo-kas/{id_kas}/approve": {
+            "get": {
+                "summary": "Approve kas",
+                "description": "Approve kas data by ID.",
+                "operationId": "approveKas",
+                "parameters": [
+                    {
+                        "name": "id_kas",
+                        "in": "path",
+                        "description": "ID of the kas to be approved",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "approval",
+                        "in": "query",
+                        "description": "Approval status ('true' for approve, 'false' for disapprove)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "true",
+                                "false"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful approval of kas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kas approval",
+                                            "type": "string",
+                                            "example": "Saldo kas berhasil disetujui"
+                                        },
+                                        "data": {
+                                            "description": "Approved kas data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Kas data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kas approval failure",
+                                            "type": "string",
+                                            "example": "Data saldo kas tidak ditemukan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/kegiatan": {
+            "post": {
+                "summary": "Create a new kegiatan",
+                "description": "Create a new kegiatan with the provided details.",
+                "operationId": "createKegiatan",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_kegiatan",
+                                    "nama_pengaju",
+                                    "deskripsi",
+                                    "tgl_kegiatan",
+                                    "id_pj"
+                                ],
+                                "properties": {
+                                    "id_kegiatan": {
+                                        "description": "ID of the kegiatan",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nama_pengaju": {
+                                        "description": "Name of the pengaju",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "deskripsi": {
+                                        "description": "Description of the kegiatan",
+                                        "type": "string",
+                                        "example": "Deskripsi kegiatan"
+                                    },
+                                    "tgl_kegiatan": {
+                                        "description": "Date of the kegiatan",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2022-05-25"
+                                    },
+                                    "id_pj": {
+                                        "description": "ID of the PJ",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful creation of kegiatan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kegiatan creation",
+                                            "type": "string",
+                                            "example": "berhasil menambah data kegiatan"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kegiatan creation failure",
+                                            "type": "string",
+                                            "example": "gagal menambah data kegiatan"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/kegiatan/{id_kegiatan}": {
+            "put": {
+                "summary": "Update kegiatan",
+                "description": "Update kegiatan data by ID.",
+                "operationId": "updateKegiatan",
+                "parameters": [
+                    {
+                        "name": "id_kegiatan",
+                        "in": "path",
+                        "description": "ID of the kegiatan to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama_pengaju",
+                                    "deskripsi",
+                                    "tgl_kegiatan",
+                                    "id_pj"
+                                ],
+                                "properties": {
+                                    "nama_pengaju": {
+                                        "description": "Name of the pengaju",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "deskripsi": {
+                                        "description": "Description of the kegiatan",
+                                        "type": "string",
+                                        "example": "Deskripsi kegiatan"
+                                    },
+                                    "tgl_kegiatan": {
+                                        "description": "Date of the kegiatan",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2022-05-25"
+                                    },
+                                    "id_pj": {
+                                        "description": "ID of the PJ",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful update of kegiatan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kegiatan update",
+                                            "type": "string",
+                                            "example": "berhasil memperbarui data kegiatan"
+                                        },
+                                        "data": {
+                                            "description": "Updated kegiatan data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Kegiatan data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kegiatan update failure",
+                                            "type": "string",
+                                            "example": "id kegiatan tidak ditemukan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete kegiatan",
+                "description": "Delete kegiatan data by ID.",
+                "operationId": "deleteKegiatan",
+                "parameters": [
+                    {
+                        "name": "id_kegiatan",
+                        "in": "path",
+                        "description": "ID of the kegiatan to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful deletion of kegiatan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kegiatan deletion",
+                                            "type": "string",
+                                            "example": "kegiatan berhasil dihapus"
+                                        },
+                                        "data": {
+                                            "description": "No data returned",
+                                            "type": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Kegiatan data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the kegiatan deletion failure",
+                                            "type": "string",
+                                            "example": "Data kegiatan tidak ditemukan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/perizinan": {
+            "post": {
+                "summary": "Create a new perizinan",
+                "description": "Create a new perizinan with the provided details.",
+                "operationId": "createPerizinan",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_perizinan",
+                                    "nama_pengaju",
+                                    "deskripsi",
+                                    "tgl_kegiatan",
+                                    "id_pj"
+                                ],
+                                "properties": {
+                                    "id_perizinan": {
+                                        "description": "ID of the perizinan",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "nama_pengaju": {
+                                        "description": "Name of the pengaju",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "deskripsi": {
+                                        "description": "Description of the perizinan",
+                                        "type": "string",
+                                        "example": "Deskripsi perizinan"
+                                    },
+                                    "tgl_kegiatan": {
+                                        "description": "Date of the perizinan",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2022-05-25"
+                                    },
+                                    "id_pj": {
+                                        "description": "ID of the PJ",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful creation of perizinan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the perizinan creation",
+                                            "type": "string",
+                                            "example": "berhasil menambah data perizinan"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the perizinan creation failure",
+                                            "type": "string",
+                                            "example": "gagal menambah data perizinan"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/perizinan/{id_perizinan}": {
+            "put": {
+                "summary": "Update perizinan",
+                "description": "Update perizinan data by ID.",
+                "operationId": "updatePerizinan",
+                "parameters": [
+                    {
+                        "name": "id_perizinan",
+                        "in": "path",
+                        "description": "ID of the perizinan to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama_pengaju",
+                                    "deskripsi",
+                                    "tgl_kegiatan",
+                                    "id_pj"
+                                ],
+                                "properties": {
+                                    "nama_pengaju": {
+                                        "description": "Name of the pengaju",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "deskripsi": {
+                                        "description": "Description of the perizinan",
+                                        "type": "string",
+                                        "example": "Deskripsi perizinan"
+                                    },
+                                    "tgl_kegiatan": {
+                                        "description": "Date of the perizinan",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2022-05-25"
+                                    },
+                                    "id_pj": {
+                                        "description": "ID of the PJ",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful update of perizinan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the perizinan update",
+                                            "type": "string",
+                                            "example": "berhasil memperbarui data perizinan"
+                                        },
+                                        "data": {
+                                            "description": "Updated perizinan data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Perizinan data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the perizinan update failure",
+                                            "type": "string",
+                                            "example": "id perizinan tidak ditemukan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete perizinan",
+                "description": "Delete perizinan data by ID.",
+                "operationId": "deletePerizinan",
+                "parameters": [
+                    {
+                        "name": "id_perizinan",
+                        "in": "path",
+                        "description": "ID of the perizinan to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful deletion of perizinan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the perizinan deletion",
+                                            "type": "string",
+                                            "example": "perizinan berhasil dihapus"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Perizinan data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the perizinan deletion failure",
+                                            "type": "string",
+                                            "example": "Data perizinan tidak ditemukan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/login": {
             "post": {
                 "summary": "User login",

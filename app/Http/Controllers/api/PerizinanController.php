@@ -8,6 +8,44 @@ use Illuminate\Http\Request;
 
 class PerizinanController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/api/perizinan",
+     *     summary="Create a new perizinan",
+     *     description="Create a new perizinan with the provided details.",
+     *     operationId="createPerizinan",
+     *     security={{"sanctum": {}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"id_perizinan", "nama_pengaju", "deskripsi", "tgl_kegiatan", "id_pj"},
+     *             @OA\Property(property="id_perizinan", type="integer", example=1, description="ID of the perizinan"),
+     *             @OA\Property(property="nama_pengaju", type="string", example="John Doe", description="Name of the pengaju"),
+     *             @OA\Property(property="deskripsi", type="string", example="Deskripsi perizinan", description="Description of the perizinan"),
+     *             @OA\Property(property="tgl_kegiatan", type="string", format="date", example="2022-05-25", description="Date of the perizinan"),
+     *             @OA\Property(property="id_pj", type="integer", example=1, description="ID of the PJ")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful creation of perizinan",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="berhasil menambah data perizinan", description="Message indicating the status of the perizinan creation"),
+     *             @OA\Property(property="data", type="object")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid input",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="gagal menambah data perizinan", description="Message indicating the status of the perizinan creation failure"),
+     *             @OA\Property(property="data", type="object", description="Additional error data")
+     *         )
+     *     )
+     * )
+     */
     public function createPerizinan(Request $request)
     {
         $status = '';
@@ -46,6 +84,52 @@ class PerizinanController extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/perizinan/{id_perizinan}",
+     *     summary="Update perizinan",
+     *     description="Update perizinan data by ID.",
+     *     operationId="updatePerizinan",
+     *     security={{"sanctum": {}}},
+     *     @OA\Parameter(
+     *         name="id_perizinan",
+     *         in="path",
+     *         description="ID of the perizinan to be updated",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"nama_pengaju", "deskripsi", "tgl_kegiatan", "id_pj"},
+     *             @OA\Property(property="nama_pengaju", type="string", example="John Doe", description="Name of the pengaju"),
+     *             @OA\Property(property="deskripsi", type="string", example="Deskripsi perizinan", description="Description of the perizinan"),
+     *             @OA\Property(property="tgl_kegiatan", type="string", format="date", example="2022-05-25", description="Date of the perizinan"),
+     *             @OA\Property(property="id_pj", type="integer", example=1, description="ID of the PJ")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful update of perizinan",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="berhasil memperbarui data perizinan", description="Message indicating the status of the perizinan update"),
+     *             @OA\Property(property="data", type="object", description="Updated perizinan data")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Perizinan data not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="id perizinan tidak ditemukan", description="Message indicating the status of the perizinan update failure")
+     *         )
+     *     )
+     * )
+     */
     public function updatePerizinan(Request $request, $id_perizinan)
     {
         $status = '';
@@ -83,6 +167,41 @@ class PerizinanController extends Controller
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/perizinan/{id_perizinan}",
+     *     summary="Delete perizinan",
+     *     description="Delete perizinan data by ID.",
+     *     operationId="deletePerizinan",
+     *     security={{"sanctum": {}}},
+     *     @OA\Parameter(
+     *         name="id_perizinan",
+     *         in="path",
+     *         description="ID of the perizinan to be deleted",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful deletion of perizinan",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="perizinan berhasil dihapus", description="Message indicating the status of the perizinan deletion")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Perizinan data not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Data perizinan tidak ditemukan", description="Message indicating the status of the perizinan deletion failure")
+     *         )
+     *     )
+     * )
+     */
     public function deletePerizinan($id_perizinan){
         $status = '';
         $message = '';
