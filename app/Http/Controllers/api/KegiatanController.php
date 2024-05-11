@@ -16,7 +16,7 @@ class KegiatanController extends Controller
      *     summary="Create a new kegiatan",
      *     description="Create a new kegiatan with the provided details.",
      *     operationId="createKegiatan",
-     *     security={{"sanctum": {}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -92,7 +92,7 @@ class KegiatanController extends Controller
      *     summary="Update kegiatan",
      *     description="Update kegiatan data by ID.",
      *     operationId="updateKegiatan",
-     *     security={{"sanctum": {}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id_kegiatan",
      *         in="path",
@@ -178,7 +178,7 @@ class KegiatanController extends Controller
      *     summary="Delete kegiatan",
      *     description="Delete kegiatan data by ID.",
      *     operationId="deleteKegiatan",
-     *     security={{"sanctum": {}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id_kegiatan",
      *         in="path",

@@ -61,17 +61,15 @@ Route::middleware(['auth:sanctum', 'role:bendahara'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum', 'role:sekretaris'])->group(function () {
-    Route::post('/perizinan', [PerizinanController::class, 'createPerizinan']);
-    Route::put('/perizinan/{id_perizinan}', [PerizinanController::class, 'updatePerizinan']);
-    Route::delete('/perizinan/{id_perizinan}', [PerizinanController::class, 'deletePerizinan']);
-    
-    Route::post('/kegiatan', [KegiatanController::class, 'createKegiatan']);
-    Route::put('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'updateKegiatan']);
-    Route::delete('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'deleteKegiatan']);
-
     Route::put('/qurban/{id_qurban}', [QurbanController::class, 'updateQurban']);
     Route::post('/qurban', [QurbanController::class, 'createQurban']);
     Route::delete('/qurban/{id_qurban}', [QurbanController::class, 'deleteQurban']);
 
+    Route::post('/perizinan', [PerizinanController::class, 'createPerizinan']);
+    Route::put('/perizinan/{id_perizinan}', [PerizinanController::class, 'updatePerizinan']);
+    Route::delete('/perizinan/{id_perizinan}', [PerizinanController::class, 'deletePerizinan']);
 
+    Route::post('/kegiatan', [KegiatanController::class, 'createKegiatan']);
+    Route::put('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'updateKegiatan']);
+    Route::delete('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'deleteKegiatan']);
 });

@@ -8,6 +8,42 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/profile",
+     *     summary="Get user profile",
+     *     description="Retrieve the profile data of the authenticated user.",
+     *     operationId="getProfile",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful retrieval of user profile",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="data user berhasil didapatkan", description="Message indicating the status of the profile retrieval"),
+     *             @OA\Property(property="data", type="object")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User data not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="data user tidak tersedia", description="Message indicating the status of the profile retrieval failure"),
+     *             @OA\Property(property="data", type="object", description="Additional error data")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="failed", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Gagal menjalankan requesst", description="Message indicating the status of the profile retrieval failure"),
+     *             @OA\Property(property="data", type="object", description="Additional error data")
+     *         )
+     *     )
+     * )
+     */
     public function getProfile(){
         $status = '';
         $message = '';

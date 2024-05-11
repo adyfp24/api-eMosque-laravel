@@ -147,7 +147,7 @@
                 },
                 "security": [
                     {
-                        "sanctum": []
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -243,7 +243,7 @@
                 },
                 "security": [
                     {
-                        "sanctum": []
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -315,7 +315,7 @@
                 },
                 "security": [
                     {
-                        "sanctum": []
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -402,7 +402,7 @@
                 },
                 "security": [
                     {
-                        "sanctum": []
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -512,7 +512,7 @@
                 },
                 "security": [
                     {
-                        "sanctum": []
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -625,7 +625,7 @@
                 },
                 "security": [
                     {
-                        "sanctum": []
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -697,7 +697,7 @@
                 },
                 "security": [
                     {
-                        "sanctum": []
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -807,7 +807,7 @@
                 },
                 "security": [
                     {
-                        "sanctum": []
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -920,7 +920,7 @@
                 },
                 "security": [
                     {
-                        "sanctum": []
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -988,7 +988,997 @@
                 },
                 "security": [
                     {
-                        "sanctum": []
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/profile": {
+            "get": {
+                "summary": "Get user profile",
+                "description": "Retrieve the profile data of the authenticated user.",
+                "operationId": "getProfile",
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieval of user profile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the profile retrieval",
+                                            "type": "string",
+                                            "example": "data user berhasil didapatkan"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the profile retrieval failure",
+                                            "type": "string",
+                                            "example": "data user tidak tersedia"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the profile retrieval failure",
+                                            "type": "string",
+                                            "example": "Gagal menjalankan requesst"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/qurban/{id_qurban}": {
+            "put": {
+                "summary": "Update existing Qurban data",
+                "description": "Update existing Qurban data.",
+                "operationId": "updateQurban",
+                "parameters": [
+                    {
+                        "name": "id_qurban",
+                        "in": "path",
+                        "description": "ID of the qurban data to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama_orang_berqurban": {
+                                        "description": "Name of the person performing the qurban",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "tanggal": {
+                                        "description": "Date of the qurban",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-07-25"
+                                    },
+                                    "dokumentasi": {
+                                        "description": "Image documentation of the qurban",
+                                        "type": "string",
+                                        "format": "binary",
+                                        "example": "base64 encoded image data"
+                                    },
+                                    "deskripsi": {
+                                        "description": "Description of the qurban activity",
+                                        "type": "string",
+                                        "example": "Description of the qurban"
+                                    },
+                                    "qurban_jenis_id": {
+                                        "description": "ID of the qurban type",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful update of Qurban data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data update",
+                                            "type": "string",
+                                            "example": "Data Qurban berhasil diubah."
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data update failure",
+                                            "type": "string",
+                                            "example": "Data Qurban gagal diubah."
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Qurban data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data update failure",
+                                            "type": "string",
+                                            "example": "Data Qurban tidak ditemukan."
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data update failure",
+                                            "type": "string",
+                                            "example": "Gagal menjalankan request."
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete existing Qurban data",
+                "description": "Delete existing Qurban data.",
+                "operationId": "deleteQurban",
+                "parameters": [
+                    {
+                        "name": "id_qurban",
+                        "in": "path",
+                        "description": "ID of the qurban data to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful deletion of Qurban data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data deletion",
+                                            "type": "string",
+                                            "example": "Data qurban berhasil dihapus"
+                                        },
+                                        "data": {
+                                            "description": "Additional data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Qurban data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data deletion failure",
+                                            "type": "string",
+                                            "example": "Data qurban tidak ditemukan"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data deletion failure",
+                                            "type": "string",
+                                            "example": "Gagal menghapus data qurban"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/qurban": {
+            "get": {
+                "summary": "Read all Qurban data",
+                "description": "Retrieve all Qurban data.",
+                "operationId": "readQurban",
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieval of Qurban data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data retrieval",
+                                            "type": "string",
+                                            "example": "Data qurban berhasil ditemukan"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Qurban data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data retrieval failure",
+                                            "type": "string",
+                                            "example": "Data qurban tidak ditemukan"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data retrieval failure",
+                                            "type": "string",
+                                            "example": "Gagal membaca data qurban"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create new Qurban data",
+                "description": "Create new Qurban data.",
+                "operationId": "createQurban",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nama_orang_berqurban",
+                                    "tanggal",
+                                    "dokumentasi",
+                                    "deskripsi",
+                                    "qurban_jenis_id"
+                                ],
+                                "properties": {
+                                    "nama_orang_berqurban": {
+                                        "description": "Name of the person performing the qurban",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "tanggal": {
+                                        "description": "Date of the qurban",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-07-25"
+                                    },
+                                    "dokumentasi": {
+                                        "description": "Image documentation of the qurban",
+                                        "type": "string",
+                                        "format": "binary",
+                                        "example": "base64 encoded image data"
+                                    },
+                                    "deskripsi": {
+                                        "description": "Description of the qurban activity",
+                                        "type": "string",
+                                        "example": "Description of the qurban"
+                                    },
+                                    "qurban_jenis_id": {
+                                        "description": "ID of the qurban type",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful creation of Qurban data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data creation",
+                                            "type": "string",
+                                            "example": "Inputan data qurban berhasil dilakukan"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data creation failure",
+                                            "type": "string",
+                                            "example": "Inputan data qurban gagal"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data creation failure",
+                                            "type": "string",
+                                            "example": "Gagal menjalankan request"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/zakat-fitrah": {
+            "get": {
+                "summary": "Read Zakat data",
+                "description": "Read Zakat data.",
+                "operationId": "readZakat",
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieval of Zakat data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data retrieval",
+                                            "type": "string",
+                                            "example": "Data Berhasil ditemukan"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Zakat data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data retrieval failure",
+                                            "type": "string",
+                                            "example": "Data Zakat Tidak ditemukan"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data retrieval failure",
+                                            "type": "string",
+                                            "example": "Gagal Menajalankan Request"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Create new Zakat data",
+                "description": "Create new Zakat data.",
+                "operationId": "createZakat",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama_pezakat": {
+                                        "description": "Name of the zakat giver",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "jumlah_zakat": {
+                                        "description": "Amount of zakat",
+                                        "type": "integer",
+                                        "example": 100000
+                                    },
+                                    "zakat_jenis_id": {
+                                        "description": "ID of the zakat type",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful creation of Zakat data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data creation",
+                                            "type": "string",
+                                            "example": "Data Zakat Berhasil Ditambahkan"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data creation failure",
+                                            "type": "string",
+                                            "example": "Gagal menjalankan request."
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/zakat-fitrah/{id_zakatfitrah}": {
+            "put": {
+                "summary": "Update existing Zakat data",
+                "description": "Update existing Zakat data.",
+                "operationId": "updateZakat",
+                "parameters": [
+                    {
+                        "name": "id_zakatfitrah",
+                        "in": "path",
+                        "description": "ID of the Zakat data to be updated",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama_pezakat": {
+                                        "description": "Name of the zakat giver",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "jumlah_zakat": {
+                                        "description": "Amount of zakat",
+                                        "type": "integer",
+                                        "example": 100000
+                                    },
+                                    "zakat_jenis_id": {
+                                        "description": "ID of the zakat type",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful update of Zakat data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data update",
+                                            "type": "string",
+                                            "example": "Data Zakat Berhasil Diperbaharui"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Zakat data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data update failure",
+                                            "type": "string",
+                                            "example": "Data Tidak Ditemukan"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data update failure",
+                                            "type": "string",
+                                            "example": "Gagal Menjalankan Request"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete Zakat data",
+                "description": "Delete Zakat data.",
+                "operationId": "deleteZakat",
+                "parameters": [
+                    {
+                        "name": "id_zakatfitrah",
+                        "in": "path",
+                        "description": "ID of the Zakat data to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful deletion of Zakat data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data deletion",
+                                            "type": "string",
+                                            "example": "Data Zakat Berhasil Dihapus"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Zakat data not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data deletion failure",
+                                            "type": "string",
+                                            "example": "Data Tidak Ditemukan"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "Status of the response",
+                                            "type": "string",
+                                            "example": "failed"
+                                        },
+                                        "message": {
+                                            "description": "Message indicating the status of the data deletion failure",
+                                            "type": "string",
+                                            "example": "Gagal Menjalankan Request"
+                                        },
+                                        "data": {
+                                            "description": "Additional error data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
                     }
                 ]
             }

@@ -14,7 +14,7 @@ class PerizinanController extends Controller
      *     summary="Create a new perizinan",
      *     description="Create a new perizinan with the provided details.",
      *     operationId="createPerizinan",
-     *     security={{"sanctum": {}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -90,7 +90,7 @@ class PerizinanController extends Controller
      *     summary="Update perizinan",
      *     description="Update perizinan data by ID.",
      *     operationId="updatePerizinan",
-     *     security={{"sanctum": {}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id_perizinan",
      *         in="path",
@@ -173,7 +173,7 @@ class PerizinanController extends Controller
      *     summary="Delete perizinan",
      *     description="Delete perizinan data by ID.",
      *     operationId="deletePerizinan",
-     *     security={{"sanctum": {}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id_perizinan",
      *         in="path",

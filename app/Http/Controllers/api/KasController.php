@@ -16,7 +16,7 @@ class KasController extends Controller
  *     summary="Create new kas",
  *     description="Create a new kas with total saldo, kas jenis ID, and current date.",
  *     operationId="createKas",
- *     security={{"sanctum": {}}},
+ *     security={{"bearerAuth":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
@@ -151,7 +151,7 @@ class KasController extends Controller
  *     summary="Update kas",
  *     description="Update kas data by ID.",
  *     operationId="updateKas",
- *     security={{"sanctum": {}}},
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id_kas",
  *         in="path",
@@ -231,7 +231,7 @@ class KasController extends Controller
  *     summary="Delete kas",
  *     description="Delete kas data by ID.",
  *     operationId="deleteKas",
- *     security={{"sanctum": {}}},
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id_kas",
  *         in="path",
@@ -298,7 +298,7 @@ class KasController extends Controller
  *     summary="Approve kas",
  *     description="Approve kas data by ID.",
  *     operationId="approveKas",
- *     security={{"sanctum": {}}},
+ *     security={{"bearerAuth":{}}},
  *     @OA\Parameter(
  *         name="id_kas",
  *         in="path",

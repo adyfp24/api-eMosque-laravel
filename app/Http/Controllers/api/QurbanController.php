@@ -9,6 +9,49 @@ use Illuminate\Support\Facades\Storage;
 
 class QurbanController extends Controller
 {
+    /**
+     * @OA\Delete(
+     *     path="/api/qurban/{id_qurban}",
+     *     summary="Delete existing Qurban data",
+     *     description="Delete existing Qurban data.",
+     *     operationId="deleteQurban",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="id_qurban",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the qurban data to be deleted",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful deletion of Qurban data",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Data qurban berhasil dihapus", description="Message indicating the status of the data deletion"),
+     *             @OA\Property(property="data", type="object", description="Additional data")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Qurban data not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Data qurban tidak ditemukan", description="Message indicating the status of the data deletion failure"),
+     *             @OA\Property(property="data", type="object", description="Additional error data")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="failed", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Gagal menghapus data qurban", description="Message indicating the status of the data deletion failure"),
+     *             @OA\Property(property="data", type="object", description="Additional error data")
+     *         )
+     *     )
+     * )
+     */
     public function deleteQurban($id_qurban)
     {
         $status = '';
@@ -36,6 +79,41 @@ class QurbanController extends Controller
             ], $status_code);
         }
     }
+    /**
+     * @OA\Get(
+     *     path="/api/qurban",
+     *     summary="Read all Qurban data",
+     *     description="Retrieve all Qurban data.",
+     *     operationId="readQurban",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful retrieval of Qurban data",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Data qurban berhasil ditemukan", description="Message indicating the status of the data retrieval"),
+     *             @OA\Property(property="data", type="object")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Qurban data not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Data qurban tidak ditemukan", description="Message indicating the status of the data retrieval failure"),
+     *             @OA\Property(property="data", type="object", description="Additional error data")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="failed", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Gagal membaca data qurban", description="Message indicating the status of the data retrieval failure"),
+     *             @OA\Property(property="data", type="object", description="Additional error data")
+     *         )
+     *     )
+     * )
+     */
     public function readQurban()
     {
         $status = '';
@@ -65,7 +143,68 @@ class QurbanController extends Controller
             ], $status_code);
         }
     }
-
+    /**
+     * @OA\Put(
+     *     path="/api/qurban/{id_qurban}",
+     *     summary="Update existing Qurban data",
+     *     description="Update existing Qurban data.",
+     *     operationId="updateQurban",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="id_qurban",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the qurban data to be updated",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="nama_orang_berqurban", type="string", example="John Doe", description="Name of the person performing the qurban"),
+     *             @OA\Property(property="tanggal", type="string", format="date", example="2024-07-25", description="Date of the qurban"),
+     *             @OA\Property(property="dokumentasi", type="string", format="binary", example="base64 encoded image data", description="Image documentation of the qurban"),
+     *             @OA\Property(property="deskripsi", type="string", example="Description of the qurban", description="Description of the qurban activity"),
+     *             @OA\Property(property="qurban_jenis_id", type="integer", example=1, description="ID of the qurban type")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful update of Qurban data",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Data Qurban berhasil diubah.", description="Message indicating the status of the data update"),
+     *             @OA\Property(property="data", type="object")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid input",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Data Qurban gagal diubah.", description="Message indicating the status of the data update failure"),
+     *             @OA\Property(property="data", type="object", description="Additional error data")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Qurban data not found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Data Qurban tidak ditemukan.", description="Message indicating the status of the data update failure"),
+     *             @OA\Property(property="data", type="object", description="Additional error data")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="failed", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Gagal menjalankan request.", description="Message indicating the status of the data update failure"),
+     *             @OA\Property(property="data", type="object", description="Additional error data")
+     *         )
+     *     )
+     * )
+     */
     public function updateQurban(Request $request, $id_qurban)
     {
         $status = '';
@@ -122,10 +261,53 @@ class QurbanController extends Controller
         }
     }
     
-    
-
-
-
+     /**
+     * @OA\Post(
+     *     path="/api/qurban",
+     *     summary="Create new Qurban data",
+     *     description="Create new Qurban data.",
+     *     operationId="createQurban",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"nama_orang_berqurban","tanggal","dokumentasi","deskripsi","qurban_jenis_id"},
+     *             @OA\Property(property="nama_orang_berqurban", type="string", example="John Doe", description="Name of the person performing the qurban"),
+     *             @OA\Property(property="tanggal", type="string", format="date", example="2024-07-25", description="Date of the qurban"),
+     *             @OA\Property(property="dokumentasi", type="string", format="binary", example="base64 encoded image data", description="Image documentation of the qurban"),
+     *             @OA\Property(property="deskripsi", type="string", example="Description of the qurban", description="Description of the qurban activity"),
+     *             @OA\Property(property="qurban_jenis_id", type="integer", example=1, description="ID of the qurban type")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful creation of Qurban data",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Inputan data qurban berhasil dilakukan", description="Message indicating the status of the data creation"),
+     *             @OA\Property(property="data", type="object")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid input",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="error", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Inputan data qurban gagal", description="Message indicating the status of the data creation failure"),
+     *             @OA\Property(property="data", type="object", description="Additional error data")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="failed", description="Status of the response"),
+     *             @OA\Property(property="message", type="string", example="Gagal menjalankan request", description="Message indicating the status of the data creation failure"),
+     *             @OA\Property(property="data", type="object", description="Additional error data")
+     *         )
+     *     )
+     * )
+     */
     public function createQurban(Request $request)
     {
         $status = '';
