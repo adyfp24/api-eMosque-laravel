@@ -126,9 +126,12 @@ class QurbanController extends Controller
                 $message = 'Data qurban tidak ditemukan';
                 $status_code = 404;
             } else {
+                $qurbanData = Qurban::join('jenis_qurbans', 'qurbans.qurban_jenis_id', '=', 'jenis_qurbans.id_jenis_qurban')
+                    ->select('qurbans.*', 'jenis_qurbans.nama_jenis')
+                    ->get();
                 $status = 'success';
                 $message = 'Data qurban berhasil ditemukan';
-                $data = $qurban;
+                $data = $qurbanData;
                 $status_code = 200;
             }
         } catch (\Exception $e) {
@@ -211,10 +214,10 @@ class QurbanController extends Controller
         $message = '';
         $data = '';
         $status_code = 200;
-    
+
         try {
             $qurban = Qurban::find($id_qurban);
-    
+
             if ($qurban) {
                 if ($request->hasFile('dokumentasi')) {
                     if ($qurban->dokumentasi) {
@@ -224,7 +227,7 @@ class QurbanController extends Controller
                 } else {
                     $dokumentasi = $qurban->dokumentasi;
                 }
-    
+
                 // Perbarui data qurban
                 $updatedQurban = $qurban->update([
                     'nama_orang_berqurban' => $request->nama_orang_berqurban ?? $qurban->nama_orang_berqurban,
@@ -233,7 +236,7 @@ class QurbanController extends Controller
                     'deskripsi' => $request->deskripsi ?? $qurban->deskripsi,
                     'qurban_jenis_id' => $request->qurban_jenis_id ?? $qurban->qurban_jenis_id
                 ]);
-    
+
                 if ($updatedQurban) {
                     $status = 'success';
                     $message = 'Data Qurban berhasil diubah.';
@@ -260,8 +263,8 @@ class QurbanController extends Controller
             ], $status_code);
         }
     }
-    
-     /**
+
+    /**
      * @OA\Post(
      *     path="/api/qurban",
      *     summary="Create new Qurban data",
@@ -314,14 +317,25 @@ class QurbanController extends Controller
         $message = '';
         $data = '';
         $status_code = 200;
-    
+
         try {
-            
+
             $imagePath = null;
             if ($request->hasFile('dokumentasi')) {
-                $imagePath = $request->file('dokumentasi')->store('images', 'public');
+                $file = $request->file('dokumentasi');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $path = public_path('images');
+
+                if (!file_exists($path)) {
+                    mkdir($path, 0755, true);
+                }
+
+                $file->move($path, $filename);
+
+                $imagePath = 'images/' . $filename;
             }
-    
+
+
             $newQurban = Qurban::create([
                 'nama_orang_berqurban' => $request->nama_orang_berqurban,
                 'tanggal' => $request->tanggal,
@@ -329,7 +343,7 @@ class QurbanController extends Controller
                 'deskripsi' => $request->deskripsi,
                 'qurban_jenis_id' => $request->qurban_jenis_id
             ]);
-    
+
             if ($newQurban) {
                 $message = 'Inputan data qurban berhasil dilakukan';
                 $status_code = 200;
@@ -351,5 +365,5 @@ class QurbanController extends Controller
             ], $status_code);
         }
     }
-    
+
 }
