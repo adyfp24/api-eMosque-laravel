@@ -16,7 +16,7 @@ class CreateTransaksisTable extends Migration
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id('id_transaksi');
             $table->string('judul');
-            $table->enum('jenis', ['persetujuan', 'pemasukan']);
+            $table->enum('jenis', ['pengeluaran', 'pemasukan']);
             $table->integer('nominal');
             $table->date('tanggal');
             $table->text('deskripsi')->nullable();
