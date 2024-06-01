@@ -19,7 +19,7 @@ class CreateTransaksisTable extends Migration
             $table->enum('jenis', ['persetujuan', 'pemasukan']);
             $table->integer('nominal');
             $table->date('tanggal');
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
     }
