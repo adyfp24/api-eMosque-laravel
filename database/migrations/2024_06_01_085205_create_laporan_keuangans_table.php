@@ -17,10 +17,11 @@ class CreateLaporanKeuangansTable extends Migration
             $table->id('id_laporan');
             $table->date('tgl_awal');
             $table->date('tgl_akhir');
-            $table->float('total_pemasukan');
-            $table->float('total_pengeluaran');
+            $table->decimal('total_pemasukan', 15, 2);
+            $table->decimal('total_pengeluaran', 15, 2);
             $table->float('total_saldo');
             $table->boolean('persetujuan');
+            $table->text('catatan')->nullable();
             $table->timestamps();
         });
     }
