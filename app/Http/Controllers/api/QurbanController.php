@@ -316,17 +316,16 @@ class QurbanController extends Controller
         $status_code = 200;
     
         try {
-            // Simpan gambar
+            
             $imagePath = null;
             if ($request->hasFile('dokumentasi')) {
                 $imagePath = $request->file('dokumentasi')->store('images', 'public');
             }
     
-            // Buat data qurban
             $newQurban = Qurban::create([
                 'nama_orang_berqurban' => $request->nama_orang_berqurban,
                 'tanggal' => $request->tanggal,
-                'dokumentasi' => $imagePath, // Simpan jalur gambar dalam basis data
+                'dokumentasi' => $imagePath,
                 'deskripsi' => $request->deskripsi,
                 'qurban_jenis_id' => $request->qurban_jenis_id
             ]);
