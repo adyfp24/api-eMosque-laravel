@@ -52,6 +52,9 @@ class ProfileController extends Controller
         try{
             $user = auth()->user();
             if($user){
+                $profileData = $user->join('roles', 'users.role_id', '=', 'roles.id_role')
+                ->select('users.*', 'roles.nama_role')
+                ->get();
                 $message = 'data user berhasil didapatkan';
                 $status_code = 200;
 
@@ -60,7 +63,7 @@ class ProfileController extends Controller
                 $status_code = 404;
             }
             $status = 'success';
-            $data = $user;
+            $data = $profileData;
         }catch(\Exception $e){
             $status = 'failed';
             $message = 'Gagal menjalankan requesst'. $e->getMessage();

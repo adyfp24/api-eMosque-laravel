@@ -141,7 +141,7 @@ class KasController extends Controller
         $data = '';
         $status_code = 200;
         try {
-            $allKas = Saldo_kas::all();
+            $allKas = Transaksi::all();
             if (!is_null($allKas) && $allKas->isNotEmpty()) {
                 $message = 'data saldo kas berhasil didapat';
                 $status_code = 200;
