@@ -43,49 +43,49 @@ class LoginController extends Controller
      * )
      */
     public function login(Request $request)
-    {
-        try {
-            // Validasi request input
-            $request->validate([
-                'name' => 'required|string',
-                'password' => 'required|string',
-            ]);
+{
+    $status = '';
+    $message = '';
+    $data = null;
+    $api_token = null;
+    $status_code = 201;
 
-            // Cari pengguna berdasarkan nama
-            $user = User::where('name', $request->name)->first();
+    try {
+        $request->validate([
+            'name' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
-            if (!$user) {
-                return response()->json([
-                    'status' => 'failed',
-                    'message' => 'username tidak terdaftar',
-                ], 401);
-            }
+        $user = User::where('name', $request->name)->first();
 
-            // Periksa kecocokan password
-            if (!Hash::check($request->password, $user->password)) {
-                return response()->json([
-                    'status' => 'failed',
-                    'message' => 'password salah',
-                ], 401);
-            }
-
-            // Buat token API
+        if (!$user) {
+            $status = 'failed';
+            $message = 'username tidak terdaftar';
+            $status_code = 401;
+        } elseif (!Hash::check($request->password, $user->password)) {
+            $status = 'failed';
+            $message = 'password salah';
+            $status_code = 401;
+        } else {
             $api_token = $user->createToken('api_token')->plainTextToken;
-
-            // Respon sukses
-            return response()->json([
-                'status' => 'success',
-                'message' => 'login sukses',
-                'data' => $user,
-                'access_token' => $api_token
-            ], 201);
-        } catch (\Exception $e) {
-            // Tangani kesalahan
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'Gagal menjalankan request: ' . $e->getMessage(),
-            ], 500);
+            $status = 'success';
+            $message = 'login sukses';
+            $data = $user;
+            $status_code = 201;
         }
+    } catch (\Exception $e) {
+        $status = 'failed';
+        $message = 'Gagal menjalankan request: ' . $e->getMessage();
+        $status_code = 500;
+    } finally {
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'data' => $data,
+            'access_token' => $api_token,
+        ], $status_code);
     }
+}
+
 
 }
