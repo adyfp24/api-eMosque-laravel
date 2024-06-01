@@ -14,10 +14,8 @@ class ChangeSaldoKasStructure extends Migration
     public function up()
     {
         Schema::table('saldo_kas', function (Blueprint $table) {
-            // Menambah kolom saldo_masuk
+            
             $table->float('saldo_masuk')->after('tanggal')->default(0);
-
-            // Menambah kolom saldo_keluar
             $table->float('saldo_keluar')->after('saldo_masuk')->default(0);
         });
     }

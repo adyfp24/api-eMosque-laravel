@@ -47,55 +47,58 @@ class RegistController extends Controller
  */
 
  public function register(Request $request)
- {
-     $status = '';
-     $message = '';
-     $data = '';
-     $status_code = 201;
- 
-     try {
+{
+    $status = '';
+    $message = '';
+    $data = null;
+    $status_code = 201;
 
-         $validatedData = $request->validate([
-             'name' => 'required|string|unique:users',
-             'email' => 'required|string|email|unique:users',
-             'password' => 'required|string',
-             'role_id' => 'required|integer'
-         ]);
- 
-         $newUser = User::create([
-             'name' => $validatedData['name'],
-             'email' => $validatedData['email'],
-             'password' => bcrypt($validatedData['password']),
-             'role_id' => $validatedData['role_id']
-         ]);
- 
-         if ($newUser) {
-             $status = 'success';
-             $message = 'registrasi telah berhasil dilakukan';
-             $data = $newUser;
-             $status_code = 201;
-         } else {
-             $status = 'failed';
-             $message = 'registrasi gagal';
-             $status_code = 400;
-         }
-     } catch (\Illuminate\Validation\ValidationException $e) {
-         
-         $status = 'failed';
-         $message = 'Validasi gagal: ' . implode(", ", $e->errors());
-         $status_code = 422;
-     } catch (\Exception $e) {
-         
-         $status = 'failed';
-         $message = 'Gagal menjalankan request: ' . $e->getMessage();
-         $status_code = 500;
-     } finally {
-         return response()->json([
-             'status' => $status,
-             'message' => $message,
-             'data' => $data
-         ], $status_code);
-     }
- }
+    try {
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|unique:users',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|min:6',
+            'role_id' => 'required|integer'
+        ]);
+
+        $newUser = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => bcrypt($validatedData['password']),
+            'role_id' => $validatedData['role_id']
+        ]);
+
+        if ($newUser) {
+            $status = 'success';
+            $message = 'registrasi telah berhasil dilakukan';
+            $data = $newUser;
+            $status_code = 201;
+        } else {
+            $status = 'failed';
+            $message = 'registrasi gagal';
+            $status_code = 400;
+        }
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        
+        $status = 'failed';
+        $message = 'Validasi gagal: ' . implode(", ", array_map(function($errors) {
+            return implode(", ", $errors);
+        }, $e->errors()));
+        $status_code = 422;
+    } catch (\Exception $e) {
+        
+        $status = 'failed';
+        $message = 'Gagal menjalankan request: ' . $e->getMessage();
+        $status_code = 500;
+    } finally {
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'data' => $data
+        ], $status_code);
+    }
+}
+
  
 }
