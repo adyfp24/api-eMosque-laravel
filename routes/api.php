@@ -42,11 +42,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout']);
 
     Route::post('/zakat-fitrah', [ZakatController::class,'createZakat']);
-    Route::get('/zakat-fitrah', [ZakatController::class,'readZakat']);
     Route::put('/zakat-fitrah/{id_zakatfitrah}', [ZakatController::class,'updateZakat']);
     Route::delete('/zakat-fitrah/{id_zakatfitrah}', [ZakatController::class,'deleteZakat']);
 });
 
+Route::get('/zakat-fitrah', [ZakatController::class,'readZakat']);
 Route::get('/qurban', [QurbanController::class, 'readQurban']);
 Route::get('/saldo-kas', [KasController::class, 'readAllKas']);
 

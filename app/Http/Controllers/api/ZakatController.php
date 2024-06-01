@@ -46,35 +46,36 @@ class ZakatController extends Controller
      *     )
      * )
      */
-    public function createZakat(Request $request){
-        $status= '' ;
-        $message= '';
+    public function createZakat(Request $request)
+    {
+        $status = '';
+        $message = '';
         $data = '';
         $status_code = 200;
-        try{
+        try {
             $newZakat = ZakatFitrah::create([
                 'nama_pezakat' => $request->nama_pezakat,
                 'jumlah_zakat' => $request->jumlah_zakat,
                 'zakat_jenis_id' => $request->zakat_jenis_id
             ]);
-            if ($newZakat){
+            if ($newZakat) {
                 $message = 'Data Zakat Berhasil Ditambahkan';
-                $status_code= 200;
-            }else{
+                $status_code = 200;
+            } else {
                 $message = 'Data Zakat Gagal Ditambahkan';
-                $status_code =500;
+                $status_code = 500;
             }
-            $status='success';
+            $status = 'success';
             $data = $newZakat;
-        }catch(\Exception $e){
-            $status='Failed';
-            $message='Gagal Menjalankan Request' . $e->getMessage();
+        } catch (\Exception $e) {
+            $status = 'Failed';
+            $message = 'Gagal Menjalankan Request' . $e->getMessage();
             $status_code = 500;
-        }finally{
+        } finally {
             return response()->json([
-                'status'=> $status,
-                'message'=> $message,
-                'data'=> $data
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
             ], $status_code);
         }
 
@@ -118,34 +119,37 @@ class ZakatController extends Controller
      */
 
 
-    public function readZakat(Request $request){
+    public function readZakat(Request $request)
+    {
         $status = '';
         $message = '';
         $data = '';
         $status_code = 200;
-        try{
-            $readzakat = ZakatFitrah::all();
-            if($readzakat->isEmpty()){
+        try {
+            $readzakat = ZakatFitrah::join('jenis_zakats', 'zakat_fitrahs.zakat_jenis_id', '=', 'jenis_zakats.id_jenis_zakat')
+            ->select('zakat_fitrahs.*', 'jenis_zakats.nama_jenis_zakat')
+            ->get();
+            if ($readzakat->isEmpty()) {
                 $message = "Data Zakat Tidak ditemukan";
                 $status_code = 404;
-            }else{
-                $message = "Data Berhasil ditemukan";     
+            } else {
+                $message = "Data Berhasil ditemukan";
                 $status_code = 200;
             }
             $status = "success";
             $data = $readzakat;
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $status = "failed";
-            $message = "Gagal Menajalankan Request: ". $e->getMessage();
+            $message = "Gagal Menajalankan Request: " . $e->getMessage();
             $status_code = 500;
 
-        }finally{
+        } finally {
             return response()->json([
                 'status' => $status,
                 'message' => $message,
                 'data' => $data,
 
-            ],$status_code);
+            ], $status_code);
 
         }
     }
@@ -202,15 +206,16 @@ class ZakatController extends Controller
      * )
      */
 
-    public function updateZakat(Request $request, $id_zakatfitrah){
+    public function updateZakat(Request $request, $id_zakatfitrah)
+    {
         $status = '';
         $message = '';
         $data = '';
         $status_code = '';
 
-        try{
+        try {
             $updateZakat = ZakatFitrah::find($id_zakatfitrah);
-            if($updateZakat){
+            if ($updateZakat) {
                 $updateZakat->update([
                     'nama_pezakat' => $request->nama_pezakat ?? $updateZakat->nama_pezakat,
                     'jumlah_zakat' => $request->jumlah_zakat ?? $updateZakat->jumlah_zakat,
@@ -218,24 +223,24 @@ class ZakatController extends Controller
                 ]);
                 $message = 'Data Zakat Berhasil Diperbaharui';
                 $status_code = 200;
-            }else{
+            } else {
                 $message = 'Data Gagal Diperbaharui';
                 $status_code = 500;
             }
             $status = "success";
             $data = $updateZakat;
 
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $status = 'failed';
-            $message = 'Gagal Menjalankan Requset'. $e->getMessage();
+            $message = 'Gagal Menjalankan Requset' . $e->getMessage();
             $status_code = 500;
-        }finally{
+        } finally {
             return response()->json([
                 'status' => $status,
                 'message' => $message,
                 'data' => $data,
-                
-            ],$status_code);
+
+            ], $status_code);
 
         }
     }
@@ -284,19 +289,20 @@ class ZakatController extends Controller
      * )
      */
 
-    public function deleteZakat(Request $request, $id_zakatfitrah){
+    public function deleteZakat(Request $request, $id_zakatfitrah)
+    {
         $status = '';
         $message = '';
         $data = '';
         $status_code = '';
 
-        try{
+        try {
             $deleteZakat = ZakatFitrah::find($id_zakatfitrah);
-            if($deleteZakat){
+            if ($deleteZakat) {
                 $deleteZakat->delete();
                 $message = 'Data Zakat Berhasil Dihapus';
                 $status_code = 200;
-            }else{
+            } else {
                 $message = 'Data Tidak Ditemukan';
                 $status_code = 404;
             }
@@ -304,16 +310,16 @@ class ZakatController extends Controller
             $data = $deleteZakat;
             $status_code = 200;
 
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $status = "failed";
-            $message = "Gagal Menjalankan Request: ". $e->getMessage();
+            $message = "Gagal Menjalankan Request: " . $e->getMessage();
             $status_code = 500;
-        }finally{
+        } finally {
             return response()->json([
-                'status'=> $status,
-                'message'=> $message,
-                'data'=> $data,
-                
+                'status' => $status,
+                'message' => $message,
+                'data' => $data,
+
             ], $status_code);
         }
     }
