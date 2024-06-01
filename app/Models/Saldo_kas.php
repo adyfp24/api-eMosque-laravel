@@ -16,4 +16,13 @@ class Saldo_kas extends Model
     {
         return $this->hasMany(Jenis_kas::class);
     }
+    public function detailPemasukan()
+    {
+        return $this->belongsTo(DetailPemasukan::class);
+    }
+    public function detailPengeluaran()
+    {
+        return $this->belongsTo(DetailPengeluaran::class);
+    }
+
 }
