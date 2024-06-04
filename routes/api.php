@@ -49,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/zakat-fitrah', [ZakatController::class,'readZakat']);
 Route::get('/qurban', [QurbanController::class, 'readQurban']);
 Route::get('/saldo-kas', [KasController::class, 'readAllKas']);
+Route::get('/perizinan', [PerizinanController::class, 'readAllPerizinan']);
 
 Route::middleware(['auth:sanctum', 'role:ketua'])->group(function () {
     Route::post('/saldo-kas/{id_kas}/', [KasController::class, 'approveKas']);

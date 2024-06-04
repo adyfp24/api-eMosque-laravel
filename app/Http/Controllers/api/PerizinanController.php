@@ -230,4 +230,39 @@ class PerizinanController extends Controller
             ], $status_code);
         }
     }
+
+    public function readAllPerizinan(){
+        $status = '';
+        $message = '';
+        $data = '';
+        $status_code = 200;
+        try {
+            $allPerizinan = DetailPerizinan::join('perizinans', 'detail_perizinans.perizinan_id', '=', 'perizinans.id_perizinan')
+            ->join('penanggung_jawabs', 'detail_perizinans.pj_id', '=', 'penanggung_jawabs.id_pj')
+            ->select('detail_perizinans.*', 'perizinans.nama_perizinan', 'penanggung_jawabs.nama_pj')
+            ->get();
+            if (!is_null($allPerizinan) && $allPerizinan->isNotEmpty()) {
+                $message = 'data perizinan berhasil didapat';
+                $status_code = 200;
+
+            } else {
+                $message = 'data perizinan tidak tersedia';
+                $status_code = 404;
+            }
+            $status = 'success';
+            $data = $allPerizinan;
+
+        } catch (\Exception $e) {
+            $status = 'failed';
+            $message = 'Gagal menjalankan requesst' . $e->getMessage();
+            $status_code = 500;
+        } finally {
+            return response()->json([
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            ], $status_code);
+
+        }
+    }
 }
