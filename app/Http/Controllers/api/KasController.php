@@ -24,6 +24,8 @@ class KasController extends Controller
      *             required={"total_saldo","kas_jenis_id"},
      *             @OA\Property(property="total_saldo", type="number", example=1000000, description="Total saldo of the kas"),
      *             @OA\Property(property="kas_jenis_id", type="integer", example=1, description="ID of the kas jenis")
+     *             @OA\Property(property="kas_jenis_id", type="integer", example=1, description="ID of the kas jenis")
+     *             @OA\Property(property="kas_jenis_id", type="integer", example=1, description="ID of the kas jenis")
      *         )
      *     ),
      *     @OA\Response(
