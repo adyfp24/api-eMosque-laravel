@@ -9,6 +9,8 @@ use App\Http\Controllers\api\QurbanController;
 use App\Http\Controllers\api\auth\LoginController;
 use App\Http\Controllers\api\auth\RegistController;
 use App\Http\Controllers\api\ZakatController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\YayasanQController;
 use App\Models\ZakatFitrah;
 use App\Models\DetailKegiatan;
 use Illuminate\Http\Request;
@@ -73,4 +75,8 @@ Route::middleware(['auth:sanctum', 'role:sekretaris'])->group(function () {
     Route::post('/kegiatan', [KegiatanController::class, 'createKegiatan']);
     Route::put('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'updateKegiatan']);
     Route::delete('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'deleteKegiatan']);
+
+    Route::post('/yayasan-qurban', [YayasanQController::class, 'createYayasan']);
 });
+
+Route::get('/product', [ProductController::class, 'getProduct']);
