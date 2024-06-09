@@ -15,12 +15,13 @@ class CreateLaporanKeuangansTable extends Migration
     {
         Schema::create('laporan_keuangans', function (Blueprint $table) {
             $table->id('id_laporan');
-            $table->date('tgl_awal');
-            $table->date('tgl_akhir');
-            $table->decimal('total_pemasukan', 15, 2);
-            $table->decimal('total_pengeluaran', 15, 2);
-            $table->float('total_saldo');
-            $table->boolean('persetujuan');
+            $table->string('judul');
+            $table->date('tanggal');
+            $table->integer('saldo_masuk');
+            $table->integer('saldo_keluar');
+            $table->decimal('total_saldo', 15, 2);
+            $table->text('deskripsi')->nullable();
+            $table->boolean('persetujuan')->default(false);
             $table->text('catatan')->nullable();
             $table->timestamps();
         });
