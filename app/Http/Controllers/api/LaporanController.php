@@ -46,10 +46,10 @@ class LaporanController extends Controller
             ]); 
 
             if ($newKas) {
-                $message = 'Inputan data transaksi berhasil dibuat';
+                $message = 'Inputan laporan berhasil dibuat';
                 $status_code = 200;
             } else {
-                $message = 'Inputan data transaksi gagal dibuat';
+                $message = 'Inputan laporan gagal dibuat';
                 $status_code = 400;
             }
 
@@ -66,5 +66,38 @@ class LaporanController extends Controller
             'message' => $message,
             'data' => $data
         ], $status_code);
+    }
+
+    public function readAllLaporan(Request $request)
+    {
+        $status = '';
+        $message = '';
+        $data = '';
+        $status_code = 200;
+        try {
+            $allLaporan = LaporanKeuangan::all();
+            if (!is_null($allLaporan) && $allLaporan->isNotEmpty()) {
+                $message = 'data laporan berhasil didapat';
+                $status_code = 200;
+
+            } else {
+                $message = 'data laporan tidak tersedia';
+                $status_code = 404;
+            }
+            $status = 'success';
+            $data = $allLaporan;
+
+        } catch (\Exception $e) {
+            $status = 'failed';
+            $message = 'Gagal menjalankan requesst' . $e->getMessage();
+            $status_code = 500;
+        } finally {
+            return response()->json([
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            ], $status_code);
+
+        }
     }
 }

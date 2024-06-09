@@ -220,7 +220,7 @@ class KasController extends Controller
         $data = '';
         $status_code = 200;
         try {
-            $kas = Saldo_kas::find($id_kas);
+            $kas = Transaksi::find($id_kas);
             if ($kas) {
                 $kas->update([
                     'total_saldo' => $request->total_saldo ?? $kas->total_saldo,
@@ -293,7 +293,7 @@ class KasController extends Controller
         $data = '';
         $status_code = 200;
         try {
-            $kas = Saldo_kas::find($id_kas);
+            $kas = Transaksi::find($id_kas);
             if ($kas) {
                 $kas->delete();
                 $message = 'saldo kas berhasil dihapus';
