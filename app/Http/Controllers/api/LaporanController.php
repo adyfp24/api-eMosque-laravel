@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\LaporanKeuangan;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,9 @@ class LaporanController extends Controller
 
         $validator = \Validator::make($request->all(), [
             'judul' => 'required|string|max:255',
+            'saldo_masuk' => 'required|integer',
+            'tanggal' => 'required|string',
+            'saldo_keluar' => 'required|integer',
             'total_saldo' => 'required|integer',
             'deskripsi' => 'nullable|string',
         ]);
@@ -32,11 +36,12 @@ class LaporanController extends Controller
         try {
             $validatedData = $validator->validated();
 
-            $newKas = Transaksi::create([
+            $newKas = LaporanKeuangan::create([
                 'judul' => $validatedData['judul'],
-                'nominal' => $validatedData['nominal'],
-                'jenis' => $validatedData['jenis'],
+                'saldo_masuk' => $validatedData['saldo_masuk'],
                 'tanggal' => $validatedData['tanggal'],
+                'saldo_keluar' => $validatedData['saldo_keluar'],
+                'total_saldo' => $validatedData['total_saldo'],
                 'deskripsi' => $validatedData['deskripsi'],
             ]); 
 

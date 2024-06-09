@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class LaporanKeuangan extends Model
 {
     use HasFactory;
+    protected $table = 'laporan_keuangans';
 
     protected $primaryKey = 'id_laporan';
 
-    protected $fillable = ['tgl_awal', 'tgl_akhir', 'total_pemasukan', 'total_pengeluaran', 'total_saldo', 'persetujuan'];
+    protected $fillable = ['judul', 'saldo_masuk', 'saldo_keluar', 'tanggal', 'total_saldo', 'deskripsi', 'persetujuan' , 'catatan'];
 
-    public function detailLaporan(){
-        return $this->belongsTo(LaporanKeuangan::class);
-    }
 }
+

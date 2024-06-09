@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\auth\LogoutController;
 use App\Http\Controllers\api\KasController;
 use App\Http\Controllers\api\KegiatanController;
+use App\Http\Controllers\api\LaporanController;
 use App\Http\Controllers\api\PerizinanController;
 use App\Http\Controllers\api\ProfileController;
 use App\Http\Controllers\api\QurbanController;
@@ -52,6 +53,7 @@ Route::get('/zakat-fitrah', [ZakatController::class,'readZakat']);
 Route::get('/qurban', [QurbanController::class, 'readQurban']);
 Route::get('/saldo-kas', [KasController::class, 'readAllKas']);
 Route::get('/perizinan', [PerizinanController::class, 'readAllPerizinan']);
+Route::get('/laporan', [KasController::class, 'readAllLaporan']);
 
 Route::middleware(['auth:sanctum', 'role:ketua'])->group(function () {
     Route::post('/saldo-kas/{id_kas}/', [KasController::class, 'approveKas']);
@@ -61,6 +63,8 @@ Route::middleware(['auth:sanctum', 'role:bendahara'])->group(function () {
     Route::post('/saldo-kas', [KasController::class, 'createKas']);
     Route::put('/saldo-kas/{id_kas}', [KasController::class, 'updateKas']);
     Route::delete('/saldo-kas/{id_kas}', [KasController::class, 'deleteKas']);
+
+    Route::post('/laporan', [LaporanController::class, 'createLaporan']);
 });
 
 Route::middleware(['auth:sanctum', 'role:sekretaris'])->group(function () {
