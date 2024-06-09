@@ -56,7 +56,7 @@ Route::get('/perizinan', [PerizinanController::class, 'readAllPerizinan']);
 Route::get('/laporan', [LaporanController::class, 'readAllLaporan']);
 
 Route::middleware(['auth:sanctum', 'role:ketua'])->group(function () {
-    Route::post('/saldo-kas/{id_kas}/', [KasController::class, 'approveKas']);
+    Route::post('/laporan/{id_laporan}/', [LaporanController::class, 'approveLaporan']);
 });
 
 Route::middleware(['auth:sanctum', 'role:bendahara'])->group(function () {
