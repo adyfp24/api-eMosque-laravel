@@ -100,4 +100,51 @@ class LaporanController extends Controller
 
         }
     }
+
+    public function approveLaporan(Request $request, $id_laporan){
+        $status = '';
+        $message = '';
+        $data = '';
+        $status_code = 200;
+
+        try {
+            $laporan = LaporanKeuangan::find($id_laporan);
+
+            if ($laporan) {
+                $approval = $request->query('approval');
+
+                if ($approval === 'true') {
+                    $laporan->persetujuan = true;
+                    $message = 'Laporan saldo kas berhasil disetujui';
+                } elseif ($approval === 'false') {
+                    $laporan->persetujuan = false;
+                    $laporan->catatan = $request->catatan;
+                    $message = 'Laporan saldo kas tidak disetujui';
+                } else {
+                    return response()->json([
+                        'status' => 'failed',
+                        'message' => 'Query parameter "approval" harus bernilai "true" atau "false".',
+                        'data' => null
+                    ], 400);
+                }
+                $laporan->save();
+                $status_code = 200;
+            } else {
+                $message = 'Data laporan saldo kas tidak ditemukan';
+                $status_code = 404;
+            }
+            $data = $laporan;
+            $status = 'success';
+        } catch (\Exception $e) {
+            $status = 'failed';
+            $message = 'Gagal menjalankan request: ' . $e->getMessage();
+            $status_code = 500;
+        } finally {
+            return response()->json([
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            ], $status_code);
+        }
+    }
 }
