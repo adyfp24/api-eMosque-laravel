@@ -14,7 +14,12 @@ class CreateYayasanQurbansTable extends Migration
     public function up()
     {
         Schema::create('yayasan_qurbans', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_yayasan_qurban');
+            $table->string('nama_yayasan');
+            $table->bigInteger('rekapan_kambing');
+            $table->bigInteger('rekapan_sapi');
+            $table->string('gambar_surat');
+            $table->date('tanggal');
             $table->timestamps();
         });
     }
