@@ -12,6 +12,7 @@ use App\Http\Controllers\api\auth\RegistController;
 use App\Http\Controllers\api\ZakatController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\YayasanQController;
+use App\Http\Controllers\YayasanZController;
 use App\Models\ZakatFitrah;
 use App\Models\DetailKegiatan;
 use Illuminate\Http\Request;
@@ -54,6 +55,8 @@ Route::get('/qurban', [QurbanController::class, 'readQurban']);
 Route::get('/saldo-kas', [KasController::class, 'readAllKas']);
 Route::get('/perizinan', [PerizinanController::class, 'readAllPerizinan']);
 Route::get('/laporan', [LaporanController::class, 'readAllLaporan']);
+Route::get('/yayasan-qurban', [YayasanQController::class, 'getAllYayasan']);
+Route::get('/yayasan-zakat', [YayasanZController::class, 'getAllYayasan']);
 
 Route::middleware(['auth:sanctum', 'role:ketua'])->group(function () {
     Route::post('/laporan/{id_laporan}/', [LaporanController::class, 'approveLaporan']);
@@ -81,6 +84,5 @@ Route::middleware(['auth:sanctum', 'role:sekretaris'])->group(function () {
     Route::delete('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'deleteKegiatan']);
 
     Route::post('/yayasan-qurban', [YayasanQController::class, 'createYayasan']);
+    Route::post('/yayasan-zakat', [YayasanZController::class, 'createYayasan']);
 });
-
-Route::get('/product', [ProductController::class, 'getProduct']);

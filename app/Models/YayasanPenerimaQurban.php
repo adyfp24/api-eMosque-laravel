@@ -10,10 +10,5 @@ class YayasanPenerimaQurban extends Model
     use HasFactory;
 
     protected $primaryKey = 'id_yayasan';
-    protected $fillable = ['nama_yayasan','gambar_surat','total_penerimaan'];
-
-    public function rekapanQurban()
-    {
-        return $this->hasMany(RekapanQurban::class);
-    }   
+    protected $fillable = ['nama_yayasan', 'rekapan_sapi', 'rekapan_kambing', 'tanggal','gambar_surat'];  
 }
