@@ -202,7 +202,7 @@ class YayasanQController extends Controller
             } else {
                 $message = 'Data yayasan penerima qurban tidak ditemukan';
                 $status = 'error';
-                $status_code = 404;
+                $status_code = 200;
             }
         } catch (\Exception $e) {
             $status = 'failed';

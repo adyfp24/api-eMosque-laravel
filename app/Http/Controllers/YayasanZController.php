@@ -74,7 +74,7 @@ class YayasanZController extends Controller
 
             } else {
                 $message = 'data yayasan penerima zakat tidak tersedia';
-                $status_code = 404;
+                $status_code = 200;
             }
             $status = 'success';
             $data = $allYayasan;

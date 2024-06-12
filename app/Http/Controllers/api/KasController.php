@@ -223,9 +223,10 @@ class KasController extends Controller
             $kas = Transaksi::find($id_kas);
             if ($kas) {
                 $kas->update([
-                    'total_saldo' => $request->total_saldo ?? $kas->total_saldo,
+                    'nominal' => $request->nominal ?? $kas->nominal,
                     'tanggal' => $request->tanggal ?? $kas->tanggal,
-                    'kas_jenis_id' => $request->kas_jenis_id ?? $kas->kas_jenis_id,
+                    'jenis' => $request->jenis ?? $kas->jenis,
+                    'deskripsi' => $request->deskripsi ?? $kas->deskripsi,
                 ]);
                 $message = 'saldo kas berhasil diperbarui';
                 $status_code = 200;
