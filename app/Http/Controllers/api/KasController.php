@@ -224,7 +224,7 @@ class KasController extends Controller
             if ($kas) {
                 $kas->update([
                     'total_saldo' => $request->total_saldo ?? $kas->total_saldo,
-                    'tanggal' => Carbon::now()->format('Y-m-d'),
+                    'tanggal' => $request->tanggal ?? $kas->tanggal,
                     'kas_jenis_id' => $request->kas_jenis_id ?? $kas->kas_jenis_id,
                 ]);
                 $message = 'saldo kas berhasil diperbarui';

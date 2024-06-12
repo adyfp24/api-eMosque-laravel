@@ -17,7 +17,8 @@ class PerizinanSeeder extends Seeder
         $perizinans = [
             ['nama_perizinan' => 'pernikahan'],
             ['nama_perizinan' => 'pengajian'],
-            ['nama_perizinan' => 'penyuluhan']
+            ['nama_perizinan' => 'penyuluhan'],
+            ['nama_perizinan' => 'hari besar'],
         ];
 
         foreach($perizinans as $perizinan){

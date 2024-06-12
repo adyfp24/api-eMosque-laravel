@@ -15,9 +15,9 @@ class PjSeeder extends Seeder
     public function run()
     {
         $penanggungJawabs = [
-            ['nama_pj' => 'pj-satu'],
-            ['nama_pj' => 'pj-dua'],
-            ['nama_pj' => 'pj-tiga'],
+            ['nama_pj' => 'pak syaiful'],
+            ['nama_pj' => 'pak bahri'],
+            ['nama_pj' => 'pak ujang'],
         ];
 
         foreach($penanggungJawabs as $pj){

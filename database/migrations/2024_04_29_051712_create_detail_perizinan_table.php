@@ -22,8 +22,8 @@ class CreateDetailPerizinanTable extends Migration
             $table->bigInteger("perizinan_id")->unsigned();
             $table->timestamps(); 
             
-            $table->foreign("pj_id")->references("id_pj")->on("penanggung_jawabs")->onDelete('cascade');
-            $table->foreign("perizinan_id")->references("id_perizinan")->on("perizinans")->onDelete('cascade');
+            $table->foreign("pj_id")->references("id_pj")->on("penanggung_jawabs")->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign("perizinan_id")->references("id_perizinan")->on("perizinans")->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

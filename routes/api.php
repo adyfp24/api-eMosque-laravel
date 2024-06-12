@@ -55,8 +55,8 @@ Route::get('/qurban', [QurbanController::class, 'readQurban']);
 Route::get('/saldo-kas', [KasController::class, 'readAllKas']);
 Route::get('/perizinan', [PerizinanController::class, 'readAllPerizinan']);
 Route::get('/laporan', [LaporanController::class, 'readAllLaporan']);
-Route::get('/yayasan-qurban', [YayasanQController::class, 'getAllYayasan']);
-Route::get('/yayasan-zakat', [YayasanZController::class, 'getAllYayasan']);
+Route::get('/yayasan-qurban', [YayasanQController::class, 'readAllYayasan']);
+Route::get('/yayasan-zakat', [YayasanZController::class, 'readAllYayasan']);
 
 Route::middleware(['auth:sanctum', 'role:ketua'])->group(function () {
     Route::post('/laporan/{id_laporan}/', [LaporanController::class, 'approveLaporan']);
@@ -83,6 +83,11 @@ Route::middleware(['auth:sanctum', 'role:sekretaris'])->group(function () {
     Route::put('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'updateKegiatan']);
     Route::delete('/kegiatan/{id_kegiatan}', [KegiatanController::class, 'deleteKegiatan']);
 
-    Route::post('/yayasan-qurban', [YayasanQController::class, 'createYayasan']);
     Route::post('/yayasan-zakat', [YayasanZController::class, 'createYayasan']);
+    Route::put('/yayasan-zakat/{id}', [YayasanZController::class, 'updateYayasan']);
+    Route::delete('/yayasan-zakat/{id}', [YayasanZController::class, 'deleteYayasan']);
+    
+    Route::post('/yayasan-qurban', [YayasanQController::class, 'createYayasan']);
+    Route::put('/yayasan-qurban/{id}', [YayasanQController::class, 'updateYayasan']);
+    Route::delete('/yayasan-qurban/{id}', [YayasanQController::class, 'deleteYayasan']);
 });
