@@ -223,6 +223,7 @@ class KasController extends Controller
             $kas = Transaksi::find($id_kas);
             if ($kas) {
                 $kas->update([
+                    'judul' => $request->judul ?? $kas->judul,
                     'nominal' => $request->nominal ?? $kas->nominal,
                     'tanggal' => $request->tanggal ?? $kas->tanggal,
                     'jenis' => $request->jenis ?? $kas->jenis,
